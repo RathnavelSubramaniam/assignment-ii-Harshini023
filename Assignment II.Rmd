@@ -1,0 +1,185 @@
+---
+title: "Assignment II"
+author: "Harshini"
+date: "2022-09-11"
+output: html_document
+---
+
+```{r}
+library(MASS)
+library(ISLR)
+```
+
+1. In this exercise you will create some simulated data and will fit simple linear regression models to it. Make sure to use set.seed(1) prior to starting part (a) to ensure consistent results.rnorm
+
+a.	Using the rnorm() function, create a vector, “x”, containing 100 observations drawn from a N(0,1) distribution. This represents a feature, X.
+
+creating a vector X with random 100 values using rnorm.
+
+```{r}
+set.seed(1)
+X = rnorm(100)
+X
+```
+
+b.	Using the rnorm() function, create a vector, “eps”, containing 100 observations drawn from a N(0,0.25) distribution.
+
+creating a vector eps with 100 values using rnorm between 0,0.25
+
+```{r}
+eps = rnorm(100,0,0.25)
+eps
+```
+
+c.	Using “x” and “eps”, generate a vector “y” according to the model
+Y=−1+0.5X+ε.
+What is the length of the vector “y” ? What are the values of β0 and β1 in this linear model ?
+
+Y=B0+B1x+e
+B0 = -1
+B1 = 0.5
+LENGTH Y = 100
+eps is a variance error of the value
+```{r}
+Y=-1+0.5*X+eps
+Y
+length(Y)
+```
+ 
+d.	Create a scatter plot displaying the relationship between “x” and “y”. Comment on what you observe.
+
+There is a positive relationship between 2 variables X and Y.
+There are many values in -1 to 1
+
+```{r}
+plot(X,Y)
+```
+
+e.	Fit a least squares linear model to predict “y” using “x”. Comment on the model obtained. How do β^0 and β^1 compare to β0 and β1 ?
+
+By adding B0 and B1, that value near to 0.
+
+There p value is <2.2e-16 *** this is mentioned there is a relationship between 2 variable
+
+The value of B^0 and B^1 are pretty close to B0 and B1.
+
+```{r}
+fit = lm(Y~X)
+fit
+summary(fit)
+```
+
+f.	Display the least squares line on the scatter plot obtained in (d). Draw the population regression line on the plot, in a different color. Use the legend() function to create an appropriate legend.
+
+```{r}
+plot(X,Y)
+abline(fit,col='red')
+abline(-1,0.5,col='blue')
+legend('topleft',c("least square","regression"),col=c("red","blue"),lty = c(1,1))
+```
+
+
+
+2.  This problem involves the “Boston” data set, which we saw in the lab for this chapter. We will now try to predict per capita crime rate using the other variables in this data set. In other words, per capita crime rate is the response, and the other variables are the predictors.
+
+```{r}
+Boston
+?Boston
+```
+
+a.	For each predictor, fit a simple linear regression model to predict the response. Describe your results. In which of the models is there a statistically significant association between the predictor and the response ? Create some plots to back up your assertions.
+
+There is a relationship between crim and zn, indus, nox, rm,age,dis,rad,tax,ptratio,black,lstat,medv .
+
+Here all variable have relationship except chas .
+
+```{r}
+pred = lm(crim~zn)
+summary(pred)
+```
+
+
+```{r}
+pred = lm(crim~indus)
+summary(pred)
+```
+
+
+```{r}
+pred = lm(crim~chas)
+summary(pred)
+```
+
+
+```{r}
+pred = lm(crim~nox)
+summary(pred)
+```
+
+
+```{r}
+pred = lm(crim~rm)
+summary(pred)
+```
+
+
+```{r}
+pred = lm(crim~age)
+summary(pred)
+```
+
+
+```{r}
+pred = lm(crim~dis)
+summary(pred)
+```
+
+
+
+```{r}
+pred = lm(crim~rad)
+summary(pred)
+```
+```{r}
+pred = lm(crim~tax)
+summary(pred)
+```
+
+
+```{r}
+pred = lm(crim~ptratio)
+summary(pred)
+```
+
+
+```{r}
+pred = lm(crim~black)
+summary(pred)
+```
+
+
+```{r}
+pred = lm(crim~lstat)
+summary(pred)
+```
+
+
+```{r}
+pred = lm(crim~medv)
+summary(pred)
+```
+
+
+b.	Fit a multiple regression model to predict the response using all of the predictors. Describe your results. For which predictors can we reject the null hypothesis H0:βj=0 ?
+
+Here there is a relationship between crim and rad,dis and medv.
+
+
+
+```{r}
+pred = lm(crim~.,Boston)
+pred
+summary(pred)
+```
+
+
